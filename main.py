@@ -33,7 +33,7 @@ pipe2 = pipes(630,randint(200,450))
 pipe3 = pipes(860,randint(200,450))
 groundX = 0
 speed = 0
-playing = True
+playing = False
 press = False
 count = 0
 count1 = 0
@@ -45,6 +45,8 @@ sound_counter = 0
 def score_func():
     score_text = score_font.render(str(score),True, (255,255,255))
     screen.blit(score_text, (185, 40))
+def restart_btn(x,y):
+    screen.blit(pygame.image.load("restart.png"), (x,y))
 while True: 
     if birdY > 560:
         game = False
@@ -69,11 +71,25 @@ while True:
                     press = True
                     birdY -= 80
                     count1 = 0
+                if playing == False:
+                    playing = True
         elif event.type == pygame.KEYUP:
             press = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            print(pipe1.x)
-    
+            if pygame.mouse.get_pos()[0] > 140 and pygame.mouse.get_pos()[0] < 260 and pygame.mouse.get_pos()[1] > 250 and pygame.mouse.get_pos()[1] < 291:
+                game = True
+                speed = 4
+                playing = False
+                birdY = 300
+                pipe1.x = 400
+                pipe2.x = 630
+                pipe3.x = 860
+                sound_counter = 0
+                white_counter = 0
+
+    if playing == False:
+        speed = 0
+        bird_array = [bird1, bird1, bird1]
             
     screen.blit(background, (0,-50))
     pipe1.spawner()
@@ -88,9 +104,9 @@ while True:
             birdY += 10
         else:
             speed = 4
-        pipe1.x -= speed
-        pipe2.x -= speed
-        pipe3.x -= speed
+            pipe1.x -= speed
+            pipe2.x -= speed
+            pipe3.x -= speed
         if press is True:
             birdY += 0
         elif press is False:
@@ -156,6 +172,8 @@ while True:
         white_counter += 1
         if white_counter < 4:
             pygame.draw.rect(screen, "white", (0,0, 600,800))
+        restart_btn(140,250)
+        
     score_func()   
     pygame.display.update()
     pygame.time.Clock().tick(60)
