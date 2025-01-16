@@ -86,6 +86,7 @@ while True:
                 pipe3.x = 860
                 sound_counter = 0
                 white_counter = 0
+                score = 0
 
     if playing == False:
         speed = 0
