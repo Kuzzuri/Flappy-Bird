@@ -49,6 +49,7 @@ def restart_btn(x,y):
     screen.blit(pygame.image.load("restart.png"), (x,y))
 while True: 
     press = False
+    press_counter = 0
     if birdY > 560:
         game = False
         bird_array = [pygame.transform.rotate(bird1, -90), pygame.transform.rotate(bird1, -90), pygame.transform.rotate(bird1, -90)]
@@ -71,7 +72,7 @@ while True:
                     if game == True:
                         flap_sound.play()
                         press = True
-                        birdY -= 100
+                        birdY -= 80
                         count1 = 0
                     if playing == False:
                         playing = True
@@ -177,7 +178,9 @@ while True:
             pygame.draw.rect(screen, "white", (0,0, 600,800))
         restart_btn(140,250)
         
-    score_func()   
-    press = True
+    score_func()
+    press_counter += 1
+    if press_counter < 15:
+        press = True
     pygame.display.update()
     pygame.time.Clock().tick(60)
