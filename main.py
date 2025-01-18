@@ -114,6 +114,7 @@ while True:
         groundX = 0
     if playing is True:
         if game == False:
+            bird_array = [pygame.transform.rotate(bird1, -90), pygame.transform.rotate(bird2, -90), pygame.transform.rotate(bird3, -90)] 
             speed = 0
             birdY += 10
         else:
@@ -180,8 +181,6 @@ while True:
         sound_counter += 1
         if sound_counter == 1:
             death_sound.play()
-            value = 0
-            vel = 7
         elif sound_counter > 5:
             sound_counter = 5
         white_counter += 1
