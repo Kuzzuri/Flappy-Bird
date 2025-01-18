@@ -53,8 +53,23 @@ vel = 7
 while True: 
     if vel < 0 and playing is True:
         bird_array = [pygame.transform.rotate(bird1, 45), pygame.transform.rotate(bird2, 45), pygame.transform.rotate(bird3, 45)] 
+    elif vel >= 14 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, -70), pygame.transform.rotate(bird2, -70), pygame.transform.rotate(bird3, -70)]
+    elif vel >= 10 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, -65), pygame.transform.rotate(bird2, -65), pygame.transform.rotate(bird3, -65)]
+    elif vel >= 7 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, -60), pygame.transform.rotate(bird2, -60), pygame.transform.rotate(bird3, -60)]
+    elif vel >= 5 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, -55), pygame.transform.rotate(bird2, -55), pygame.transform.rotate(bird3, -55)]
+    elif vel >= 2 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, -50), pygame.transform.rotate(bird2, -50), pygame.transform.rotate(bird3, -50)]
     elif vel >= 0 and playing is True:
         bird_array = [pygame.transform.rotate(bird1, -45), pygame.transform.rotate(bird2, -45), pygame.transform.rotate(bird3, -45)] 
+    elif vel < 0 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, -40), pygame.transform.rotate(bird2, -40), pygame.transform.rotate(bird3, -40)] 
+    elif vel < -3 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, -35), pygame.transform.rotate(bird2, -35), pygame.transform.rotate(bird3, -35)] 
+
     if birdY >= 560:
         game = False
         birdY = 560
@@ -101,7 +116,7 @@ while True:
             speed = 0
             birdY += 10
         else:
-            speed = 4
+            speed = 0
             pipe1.x -= speed
             pipe2.x -= speed
             pipe3.x -= speed
