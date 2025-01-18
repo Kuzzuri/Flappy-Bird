@@ -18,6 +18,8 @@ flap_sound = pygame.mixer.Sound("Flap Sound.wav")
 death_sound = pygame.mixer.Sound("Death sound.wav")
 score = 0
 white_counter = 0
+value = 0
+value_counter = 0
 class pipes:
     def __init__(self, x, y):
         self.x = x
@@ -47,37 +49,29 @@ def score_func():
     screen.blit(score_text, (185, 40))
 def restart_btn(x,y):
     screen.blit(pygame.image.load("restart.png"), (x,y))
+vel = 7
 while True: 
-    press = False
-    press_counter = 0
-    if birdY > 560:
+    print(birdY)
+    if vel < 0 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, 45), pygame.transform.rotate(bird2, 45), pygame.transform.rotate(bird3, 45)] 
+    elif vel >= 0 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, -45), pygame.transform.rotate(bird2, -45), pygame.transform.rotate(bird3, -45)] 
+    if birdY >= 560:
         game = False
-        bird_array = [pygame.transform.rotate(bird1, -90), pygame.transform.rotate(bird1, -90), pygame.transform.rotate(bird1, -90)]
         birdY = 560
-    else:
-        if press == True:
-            bird_array = [pygame.transform.rotate(bird1, 35), pygame.transform.rotate(bird2, 35), pygame.transform.rotate(bird3, 35)]
-        elif press == False:
-            count1 += 1
-            if count1 > 11:
-                bird_array = [pygame.transform.rotate(bird1, -50), pygame.transform.rotate(bird2, -50), pygame.transform.rotate(bird3, -50)]
-            else:
-                bird_array = [pygame.transform.rotate(bird1, 30), pygame.transform.rotate(bird2, 30), pygame.transform.rotate(bird3, 30)]
+        bird_array = [pygame.transform.rotate(bird1, -90), pygame.transform.rotate(bird2, -90), pygame.transform.rotate(bird3, -90)] 
+    elif playing == False:
+        bird_array = [bird1, bird2, bird3]
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                if press == False:
-                    if game == True:
-                        flap_sound.play()
-                        press = True
-                        birdY -= 80
-                        count1 = 0
-                    if playing == False:
-                        playing = True
-        elif event.type == pygame.KEYUP:
-            press = False
+                flap_sound.play()
+                press = True
+                vel = -11
+                if playing == False:
+                    playing = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if pygame.mouse.get_pos()[0] > 140 and pygame.mouse.get_pos()[0] < 260 and pygame.mouse.get_pos()[1] > 250 and pygame.mouse.get_pos()[1] < 291:
                 game = True
@@ -93,7 +87,8 @@ while True:
 
     if playing == False:
         speed = 0
-        bird_array = [bird1, bird1, bird1]
+        birdY = 300
+        bird_array = [bird1, bird2, bird3]
             
     screen.blit(background, (0,-50))
     pipe1.spawner()
@@ -113,11 +108,6 @@ while True:
             pipe3.x -= speed
         if press is True:
             birdY += 0
-        elif press is False:
-            if count1 > 5:
-                birdY += 7
-            else:
-                birdY += 2
     elif playing is False:
         speed = 0
     if count == 3:
@@ -132,8 +122,21 @@ while True:
     distance3 = sqrt(pow((pipe3.x - 20), 2) + pow(pipe3.y - birdY, 2))
     distancer = sqrt(pow((pipe1.x - 20), 2) + pow((pipe1.y - 750) - birdY, 2))
 
+    vel += value
+    birdY += vel
+    
+    if press == True:
+        bird_array = [pygame.transform.rotate(bird1, 45), pygame.transform.rotate(bird2, 45), pygame.transform.rotate(bird3, 45)]
+        if vel >= -20:
+            value = 0.5
+            if vel >= 7:
+                vel == 7
 
-   
+    
+
+                
+
+        
     
     if pipe1.x < 80 and pipe1.x >= -50:
         if (birdY + 50) < pipe1.y and (birdY + 200) > (pipe1.y):
@@ -168,9 +171,13 @@ while True:
 
     screen.blit(ground, (groundX,610))
     if game == False:
+        vel = 7
+        value = 0
         sound_counter += 1
         if sound_counter == 1:
             death_sound.play()
+            value = 0
+            vel = 7
         elif sound_counter > 5:
             sound_counter = 5
         white_counter += 1
@@ -179,8 +186,7 @@ while True:
         restart_btn(140,250)
         
     score_func()
-    press_counter += 1
-    if press_counter < 15:
-        press = True
+
+
     pygame.display.update()
     pygame.time.Clock().tick(60)
