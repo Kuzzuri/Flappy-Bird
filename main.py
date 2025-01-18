@@ -49,26 +49,31 @@ def score_func():
     screen.blit(score_text, (185, 40))
 def restart_btn(x,y):
     screen.blit(pygame.image.load("restart.png"), (x,y))
-vel = 7
+vel = 20
 while True: 
     if vel < 0 and playing is True:
-        bird_array = [pygame.transform.rotate(bird1, 45), pygame.transform.rotate(bird2, 45), pygame.transform.rotate(bird3, 45)] 
+        bird_array = [pygame.transform.rotate(bird1, 25), pygame.transform.rotate(bird2, 25), pygame.transform.rotate(bird3, 25)] 
+    elif vel >= 20 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, -35), pygame.transform.rotate(bird2, -35), pygame.transform.rotate(bird3, -35 )]
+    elif vel >= 18 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, -30), pygame.transform.rotate(bird2, -30), pygame.transform.rotate(bird3, -30)]
+    elif vel >= 16 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, -25), pygame.transform.rotate(bird2, -25), pygame.transform.rotate(bird3, -25)]
     elif vel >= 14 and playing is True:
-        bird_array = [pygame.transform.rotate(bird1, -70), pygame.transform.rotate(bird2, -70), pygame.transform.rotate(bird3, -70)]
+        bird_array = [pygame.transform.rotate(bird1, -20), pygame.transform.rotate(bird2, -20), pygame.transform.rotate(bird3, -20)]
+    elif vel >= 12 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, -15), pygame.transform.rotate(bird2, -15), pygame.transform.rotate(bird3, -15)]
     elif vel >= 10 and playing is True:
-        bird_array = [pygame.transform.rotate(bird1, -65), pygame.transform.rotate(bird2, -65), pygame.transform.rotate(bird3, -65)]
-    elif vel >= 7 and playing is True:
-        bird_array = [pygame.transform.rotate(bird1, -60), pygame.transform.rotate(bird2, -60), pygame.transform.rotate(bird3, -60)]
-    elif vel >= 5 and playing is True:
-        bird_array = [pygame.transform.rotate(bird1, -55), pygame.transform.rotate(bird2, -55), pygame.transform.rotate(bird3, -55)]
+        bird_array = [pygame.transform.rotate(bird1, -10), pygame.transform.rotate(bird2, -10), pygame.transform.rotate(bird3, -10)]
+    elif vel >= 8 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, 5), pygame.transform.rotate(bird2, 5), pygame.transform.rotate(bird3, 5)]
+    elif vel >= 6 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, 10), pygame.transform.rotate(bird2, 10), pygame.transform.rotate(bird3, 10)]
+    elif vel >= 4 and playing is True:
+        bird_array = [pygame.transform.rotate(bird1, 15), pygame.transform.rotate(bird2, 15), pygame.transform.rotate(bird3, 15)] 
     elif vel >= 2 and playing is True:
-        bird_array = [pygame.transform.rotate(bird1, -50), pygame.transform.rotate(bird2, -50), pygame.transform.rotate(bird3, -50)]
-    elif vel >= 0 and playing is True:
-        bird_array = [pygame.transform.rotate(bird1, -45), pygame.transform.rotate(bird2, -45), pygame.transform.rotate(bird3, -45)] 
-    elif vel < 0 and playing is True:
-        bird_array = [pygame.transform.rotate(bird1, -40), pygame.transform.rotate(bird2, -40), pygame.transform.rotate(bird3, -40)] 
-    elif vel < -3 and playing is True:
-        bird_array = [pygame.transform.rotate(bird1, -35), pygame.transform.rotate(bird2, -35), pygame.transform.rotate(bird3, -35)] 
+        bird_array = [pygame.transform.rotate(bird1, 20), pygame.transform.rotate(bird2, 20), pygame.transform.rotate(bird3, 20)]
+
 
     if birdY >= 560:
         game = False
@@ -83,7 +88,7 @@ while True:
             if event.key == pygame.K_SPACE:
                 flap_sound.play()
                 press = True
-                vel = -11
+                vel = -15
                 if playing == False:
                     playing = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -116,7 +121,7 @@ while True:
             speed = 0
             birdY += 10
         else:
-            speed = 0
+            speed = 4
             pipe1.x -= speed
             pipe2.x -= speed
             pipe3.x -= speed
@@ -138,13 +143,12 @@ while True:
 
     vel += value
     birdY += vel
-    
+
     if press == True:
-        bird_array = [pygame.transform.rotate(bird1, 45), pygame.transform.rotate(bird2, 45), pygame.transform.rotate(bird3, 45)]
         if vel >= -20:
-            value = 0.5
-            if vel >= 7:
-                vel == 7
+            value = 1
+            if vel >= 20:
+                vel = 20
 
     
 
