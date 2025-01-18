@@ -51,7 +51,6 @@ def restart_btn(x,y):
     screen.blit(pygame.image.load("restart.png"), (x,y))
 vel = 7
 while True: 
-    print(birdY)
     if vel < 0 and playing is True:
         bird_array = [pygame.transform.rotate(bird1, 45), pygame.transform.rotate(bird2, 45), pygame.transform.rotate(bird3, 45)] 
     elif vel >= 0 and playing is True:
