@@ -73,8 +73,6 @@ while True:
         bird_array = [pygame.transform.rotate(bird1, 15), pygame.transform.rotate(bird2, 15), pygame.transform.rotate(bird3, 15)] 
     elif vel >= 2 and playing is True:
         bird_array = [pygame.transform.rotate(bird1, 20), pygame.transform.rotate(bird2, 20), pygame.transform.rotate(bird3, 20)]
-
-
     if birdY >= 560:
         game = False
         birdY = 560
@@ -103,12 +101,10 @@ while True:
                 sound_counter = 0
                 white_counter = 0
                 score = 0
-
     if playing == False:
         speed = 0
         birdY = 300
-        bird_array = [bird1, bird2, bird3]
-            
+        bird_array = [bird1, bird2, bird3]      
     screen.blit(background, (0,-50))
     pipe1.spawner()
     pipe2.spawner()
@@ -140,22 +136,13 @@ while True:
     distance2 = sqrt(pow((pipe2.x - 20), 2) + pow(pipe2.y - birdY, 2))
     distance3 = sqrt(pow((pipe3.x - 20), 2) + pow(pipe3.y - birdY, 2))
     distancer = sqrt(pow((pipe1.x - 20), 2) + pow((pipe1.y - 750) - birdY, 2))
-
     vel += value
     birdY += vel
-
     if press == True:
         if vel >= -20:
             value = 1
             if vel >= 20:
                 vel = 20
-
-    
-
-                
-
-        
-    
     if pipe1.x < 80 and pipe1.x >= -50:
         if (birdY + 50) < pipe1.y and (birdY + 200) > (pipe1.y):
             if pipe1.x == -12:
@@ -186,7 +173,6 @@ while True:
                 score_sound.play()
         else:
             game = False
-
     screen.blit(ground, (groundX,610))
     if game == False:
         vel = 7
@@ -201,10 +187,7 @@ while True:
         white_counter += 1
         if white_counter < 4:
             pygame.draw.rect(screen, "white", (0,0, 600,800))
-        restart_btn(140,250)
-        
+        restart_btn(140,250)   
     score_func()
-
-
     pygame.display.update()
     pygame.time.Clock().tick(60)
